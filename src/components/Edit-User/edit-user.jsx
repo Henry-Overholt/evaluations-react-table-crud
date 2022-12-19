@@ -15,12 +15,10 @@ const USER_QUERY = gql`
 
 const UPDATE_USER = gql`
   mutation updateUser($email: ID!, $newAttributes: UserAttributesInput!) {
-    updateUser(email: $email, newAttributes: { name: $name, role: $role }) {
-      returning {
-        email
-        name
-        role
-      }
+    updateUser(email: $email, newAttributes: $newAttributes) {
+      email
+      name
+      role
     }
   }
 `;
@@ -39,6 +37,7 @@ function EditUserComponent() {
     { value: 'SALES', label: 'Sales' },
   ];
   const [updateUser, { newData, updateLoading, updateError }] = useMutation(UPDATE_USER);
+
   useEffect(() => {
     if (data) {
       setRoleValue(data.user.role);
@@ -49,7 +48,9 @@ function EditUserComponent() {
   if (error) return `Error! ${error.message}`;
 
   function onSaveClicked() {
-    updateUser({ variables: { email: email, name: nameValue, role: roleValue } });
+    updateUser({
+      variables: { email: email, newAttributes: { name: nameValue, role: roleValue } },
+    }).then((response) => console.log(response));
   }
 
   return (

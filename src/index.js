@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import env from './env/env';
 import Users from './components/Users/Users';
 import EditUserComponent from './components/Edit-User/edit-user';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, HashRouter } from 'react-router-dom';
 import './index.css';
 
 const client = new ApolloClient({
