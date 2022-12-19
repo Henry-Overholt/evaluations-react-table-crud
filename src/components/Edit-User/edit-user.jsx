@@ -3,6 +3,7 @@ import './edit-user.css';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
+import ToasterMessageComponent from './../toaster-message/toaster-message';
 
 const USER_QUERY = gql`
   query getUserByEmail($email: ID!) {
@@ -28,6 +29,9 @@ function EditUserComponent() {
   const { loading, error, data } = useQuery(USER_QUERY, { variables: { email: email } });
   const [roleValue, setRoleValue] = useState('');
   const [nameValue, setNameValue] = useState('');
+  const [showToaster, setShowToaster] = useState(false);
+  const [color, setColor] = useState('');
+  const [message, setMessage] = useState('');
 
   const roles = [
     { value: 'ADMIN', label: 'Admin' },
@@ -44,13 +48,20 @@ function EditUserComponent() {
       setNameValue(data.user.name);
     }
   }, [data]);
+
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
 
   function onSaveClicked() {
     updateUser({
       variables: { email: email, newAttributes: { name: nameValue, role: roleValue } },
-    }).then((response) => console.log(response));
+    }).then((response) => {
+      if (response) {
+        setColor('#4cad4c');
+        setMessage('Updated User');
+        setShowToaster(true);
+      }
+    });
   }
 
   return (
@@ -91,6 +102,15 @@ function EditUserComponent() {
           ))}
         </div>
       </section>
+      {showToaster && (
+        <ToasterMessageComponent
+          message={message}
+          color={color}
+          onButtonClicked={() => {
+            setShowToaster(false);
+          }}
+        />
+      )}
     </main>
   );
 }
