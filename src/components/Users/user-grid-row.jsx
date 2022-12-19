@@ -1,17 +1,23 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 function UserGridRowComponent({ user, handleCheckboxClick }) {
+  const navigate = useNavigate();
   function handleOnClick(event) {
-    console.log(event);
+    if (event.target.className != 'checkbox') {
+      navigate('/edit/' + user.email);
+      console.log(event.target.className);
+    }
   }
 
   return (
-    <tr>
+    <tr onClick={handleOnClick}>
       <td>
         <input
           type="checkbox"
           name=""
           id=""
+          className="checkbox"
           onClick={() => {
             handleCheckboxClick(user.email);
           }}

@@ -1,0 +1,71 @@
+#edit-user-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#edit-user-container header {
+  width: 70%;
+}
+
+#edit-user-container header button {
+  border-color: #0070c9;
+  background-color: #0070c9;
+  color: white;
+}
+
+#edit-user-container section {
+  display: flex;
+  width: 70%;
+}
+
+#edit-user-container section .left-container,
+#edit-user-container section .right-container {
+  margin-top: 1.5em;
+  width: 50%;
+  height: 20em;
+  display: flex;
+  flex-direction: column;
+}
+
+#edit-user-container section .left-container {
+  color: #333333;
+}
+
+#edit-user-container section .left-container label {
+  margin-bottom: 5px;
+}
+
+#edit-user-container section .right-container {
+  border-left: 1px solid #e5e5e5;
+}
+
+#edit-user-container section .right-container p {
+  font-weight: 700;
+  color: #333333;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+#edit-user-container section .right-container p,
+#edit-user-container section .right-container .radioButtonDiv {
+  margin: 2px 0px 0px 15px;
+  display: flex;
+  align-items: center;
+}
+
+#edit-user-container section .right-container .radioButtonDiv input {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+}
+
+#edit-user-container section .left-container input {
+  width: 20em;
+  height: 1.5em;
+  text-indent: 5px;
+}
+
+#edit-user-container section .left-container input:focus {
+  outline: 3px solid rgb(0, 170, 255);
+}

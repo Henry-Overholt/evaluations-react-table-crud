@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import UserGridRowComponent from './user-grid-row';
+import { useMutation } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
+
+const DELETE_USERS = gql`
+  mutation DeleteUsers($emails: [ID]!) {
+    deleteUsers(emails: $emails) {
+      emails
+    }
+  }
+`;
 
 function UserGridComponent({ users }) {
   const [deleteEnabled, setDeleteEnabled] = useState(true);
   const [deleteEmails, setDeleteEmails] = useState([]);
-  let deleteEmailsButton = true;
+  const [deleteUsers, { data, loading, error }] = useMutation(DELETE_USERS);
 
   const handleCheckboxClick = (email) => {
     const isFoundEmail = deleteEmails.find((deleteEmail) => deleteEmail === email);
@@ -19,11 +29,16 @@ function UserGridComponent({ users }) {
     setDeleteEnabled(deleteEmails.length === 0);
   }, [deleteEmails]);
 
+  function onDeleteClick() {
+    deleteUsers({ variables: { emails: deleteEmails } });
+  }
   return (
     <section id="user-grid-section">
       <header id="user-grid-header">
         <h2>User</h2>
-        <button disabled={deleteEnabled}>Delete</button>
+        <button disabled={deleteEnabled} onClick={onDeleteClick}>
+          Delete
+        </button>
       </header>
       <table>
         <thead>
