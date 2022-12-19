@@ -49,3 +49,5 @@ export default {
 - How you structure your files.
 - How you implement layouts and how clean your styles are.
 - Adhering to the Prettier and ESLint config set up in the starter repository.
+
+https://react-crud-table-app.surge.sh/
